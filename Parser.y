@@ -9,7 +9,7 @@ extern int yylex();
 extern void yyerror(const char*);
 %}
 
-%token ASSIGN TYPE ID  
+%token ASSIGN TYPE ID ACCESS PROPERTY NR
 %start progr
 %left LMERGE RMERGE LSUBSTRACT RSUBSTRACT
 %left LEFT RIGHT
@@ -24,7 +24,15 @@ line: instruction ';'
 	;
 
 instruction: declaration
-			;
+		   | propertySetter
+		   ;
+
+propertySetter: ID ACCESS PROPERTY ASSIGN propertyValue
+			  ;
+
+propertyValue: NR
+			 ;
+
 
 declaration: TYPE ID 
 		   | TYPE ID ASSIGN associativeExpression

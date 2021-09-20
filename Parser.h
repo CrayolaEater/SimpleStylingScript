@@ -48,12 +48,15 @@ extern int yydebug;
     ASSIGN = 258,
     TYPE = 259,
     ID = 260,
-    LMERGE = 261,
-    RMERGE = 262,
-    LSUBSTRACT = 263,
-    RSUBSTRACT = 264,
-    LEFT = 265,
-    RIGHT = 266
+    ACCESS = 261,
+    PROPERTY = 262,
+    NR = 263,
+    LMERGE = 264,
+    RMERGE = 265,
+    LSUBSTRACT = 266,
+    RSUBSTRACT = 267,
+    LEFT = 268,
+    RIGHT = 269
   };
 #endif
 
