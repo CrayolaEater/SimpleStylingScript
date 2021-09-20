@@ -20,10 +20,10 @@ progr: line progr
 	 | %empty
 	 ;
 
-line: instructiune ';'
+line: instruction ';'
 	;
 
-instructiune: declaration
+instruction: declaration
 			;
 
 declaration: TYPE ID 

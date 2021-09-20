@@ -425,7 +425,7 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "ASSIGN", "TYPE", "ID", "LMERGE",
   "RMERGE", "LSUBSTRACT", "RSUBSTRACT", "LEFT", "RIGHT", "';'", "$accept",
-  "progr", "line", "instructiune", "declaration", "associativeExpression", YY_NULL
+  "progr", "line", "instruction", "declaration", "associativeExpression", YY_NULL
 };
 #endif
 
