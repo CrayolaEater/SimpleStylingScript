@@ -45,9 +45,35 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    ASSIGN = 258,
-    TYPE = 259,
-    ID = 260
+    NR = 258,
+    ID = 259,
+    TIP = 260,
+    BGIN = 261,
+    END = 262,
+    ASSIGN = 263,
+    IF = 264,
+    WHILE = 265,
+    FOR = 266,
+    LOOP = 267,
+    OBJ = 268,
+    PLUS = 269,
+    MINUS = 270,
+    MUL = 271,
+    DIV = 272,
+    LEFT = 273,
+    RIGHT = 274,
+    ARRLEFT = 275,
+    ARRRIGHT = 276,
+    EVAL = 277,
+    AND = 278,
+    LESS = 279,
+    LEQ = 280,
+    EQL = 281,
+    GREATER = 282,
+    GREQ = 283,
+    OR = 284,
+    NOT = 285,
+    NEQ = 286
   };
 #endif
 

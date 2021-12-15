@@ -104,6 +104,7 @@
     <ClCompile Include="_baseObj.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="limbaj.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="_baseObj.h" />
