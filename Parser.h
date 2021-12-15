@@ -45,6 +45,7 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
+<<<<<<< HEAD
     NR = 258,
     ID = 259,
     TIP = 260,
@@ -74,6 +75,20 @@ extern int yydebug;
     OR = 284,
     NOT = 285,
     NEQ = 286
+=======
+    ASSIGN = 258,
+    TYPE = 259,
+    ID = 260,
+    ACCESS = 261,
+    PROPERTY = 262,
+    NR = 263,
+    LMERGE = 264,
+    RMERGE = 265,
+    LSUBSTRACT = 266,
+    RSUBSTRACT = 267,
+    LEFT = 268,
+    RIGHT = 269
+>>>>>>> 2734eb27b0cdcb10434c85ec7dbfb017a94c81ae
   };
 #endif
 
