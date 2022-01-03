@@ -153,6 +153,9 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Parser.cpp ; Parser.h</Outputs>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

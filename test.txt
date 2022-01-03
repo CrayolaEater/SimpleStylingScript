@@ -1,0 +1,1 @@
+text, tas : boolean = a == 2;

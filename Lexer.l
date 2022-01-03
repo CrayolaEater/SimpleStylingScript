@@ -5,7 +5,12 @@ using namespace std;
 %}
 %option noyywrap
 %%
+"." {return PERIOD;}
+"," {return COMMA;}
 "+" {return PLUS;}
+":" {return COLON;}
+";" {return SEMICOLON;}
+"string"|"int"|"boolean"|"char"|"float" {return TYPE;}
 "-" {return MINUS;}
 "*" {return MUL;}
 "/" {return DIV;}
@@ -13,7 +18,6 @@ using namespace std;
 ")" {return RIGHT;}
 "[" {return ARRLEFT;}
 "]" {return ARRRIGHT;}
-"Eval" {return EVAL;}
 "&&" {return AND;}
 "<=" {return LEQ;}
 "<" {return LESS;}
@@ -26,10 +30,8 @@ using namespace std;
 "if" {return IF;}
 "for" {return FOR;}
 "while" {return WHILE;}
-"loop" {return LOOP;}
-"object" {return OBJ;}
 [_a-zA-Z][_a-zA-Z0-9]* {return ID;}
-"<-" {return ASSIGN;}
+"=" {return ASSIGN;}
 ([0-9]*[.])?[0-9]+ {return NR;}
 [ \t] ;
 \n {yylineno++;}
