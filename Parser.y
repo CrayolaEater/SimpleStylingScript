@@ -9,9 +9,9 @@ extern int yylex();
 extern void yyerror(const char*);
 %}
 
-%token NR ID PERIOD COMMA LEFT_BRACKET RIGHT_BRACKET
+%token NR ID PERIOD COMMA LEFT_BRACKET RIGHT_BRACKET FUNCTION RETURN BREAK
 %token ASSIGN IF WHILE FOR LOOP OBJ PLUS MINUS MUL DIV LEFT RIGHT ARRLEFT ARRRIGHT
-%token AND LESS LEQ EQL GREATER GREQ OR NOT NEQ SEMICOLON COLON TYPE
+%token AND LESS LEQ EQL GREATER GREQ OR NOT NEQ SEMICOLON COLON TYPE VOID
 %left AND OR
 %left LESS LEQ EQL GREATER GREQ NEQ
 %left PLUS MINUS
@@ -27,7 +27,10 @@ program: %empty
 block: statement
 	 | block statement
 	 ;
-instructions: declaration ;
+instructions: declaration
+			| RETURN expression
+			| BREAK
+			;
 
 declaration: declarationList COLON TYPE
 		   | declarationList COLON TYPE ASSIGN expression
@@ -63,7 +66,23 @@ expression: ID
 		 ;	
 
 statement: instructions SEMICOLON
+		 | functionBlock
 		 | IF LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET 
 		 | WHILE LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET 
 		 ;
-%%
+
+functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+			 | FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+			 | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+			 | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+			 | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+			 | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+			 | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+			 | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+			 ;
+
+functionDeclaration: ID COLON TYPE
+				   | ID COLON TYPE ARRLEFT ARRRIGHT
+				   | ID COLON TYPE COMMA functionDeclaration
+				   | ID COLON TYPE ARRLEFT ARRRIGHT COMMA functionDeclaration
+				   ;

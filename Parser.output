@@ -17,1129 +17,1668 @@ Grammar
     4      | block statement
 
     5 instructions: declaration
+    6             | RETURN expression
+    7             | BREAK
 
-    6 declaration: declarationList COLON TYPE
-    7            | declarationList COLON TYPE ASSIGN expression
-    8            | declarationList COLON TYPE ARRLEFT ARRRIGHT
-    9            | declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
+    8 declaration: declarationList COLON TYPE
+    9            | declarationList COLON TYPE ASSIGN expression
+   10            | declarationList COLON TYPE ARRLEFT ARRRIGHT
+   11            | declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
 
-   10 arrayValues: expression
-   11            | expression COMMA arrayValues
+   12 arrayValues: expression
+   13            | expression COMMA arrayValues
 
-   12 declarationList: ID
-   13                | ID COMMA declarationList
+   14 declarationList: ID
+   15                | ID COMMA declarationList
 
-   14 expression: ID
-   15           | NR
-   16           | ID ARRLEFT NR ARRRIGHT
-   17           | expression MINUS expression
-   18           | expression PLUS expression
-   19           | expression MUL expression
-   20           | expression DIV expression
-   21           | LEFT expression RIGHT
-   22           | expression GREATER expression
-   23           | expression LESS expression
-   24           | expression EQL expression
-   25           | expression LEQ expression
-   26           | expression GREQ expression
-   27           | expression NEQ expression
-   28           | expression OR expression
-   29           | expression AND expression
-   30           | NOT expression
+   16 expression: ID
+   17           | NR
+   18           | ID ARRLEFT NR ARRRIGHT
+   19           | expression MINUS expression
+   20           | expression PLUS expression
+   21           | expression MUL expression
+   22           | expression DIV expression
+   23           | LEFT expression RIGHT
+   24           | expression GREATER expression
+   25           | expression LESS expression
+   26           | expression EQL expression
+   27           | expression LEQ expression
+   28           | expression GREQ expression
+   29           | expression NEQ expression
+   30           | expression OR expression
+   31           | expression AND expression
+   32           | NOT expression
 
-   31 statement: instructions SEMICOLON
-   32          | IF LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
-   33          | WHILE LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+   33 statement: instructions SEMICOLON
+   34          | functionBlock
+   35          | IF LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+   36          | WHILE LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   39              | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+   43              | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+
+   45 functionDeclaration: ID COLON TYPE
+   46                    | ID COLON TYPE ARRLEFT ARRRIGHT
+   47                    | ID COLON TYPE COMMA functionDeclaration
+   48                    | ID COLON TYPE ARRLEFT ARRRIGHT COMMA functionDeclaration
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-NR (258) 15 16
-ID (259) 12 13 14 16
+NR (258) 17 18
+ID (259) 14 15 16 18 37 38 39 40 41 42 43 44 45 46 47 48
 PERIOD (260)
-COMMA (261) 11 13
-LEFT_BRACKET (262) 32 33
-RIGHT_BRACKET (263) 32 33
-ASSIGN (264) 7 9
-IF (265) 32
-WHILE (266) 33
-FOR (267)
-LOOP (268)
-OBJ (269)
-PLUS (270) 18
-MINUS (271) 17
-MUL (272) 19
-DIV (273) 20
-LEFT (274) 21 32 33
-RIGHT (275) 21 32 33
-ARRLEFT (276) 8 9 16
-ARRRIGHT (277) 8 9 16
-AND (278) 29
-LESS (279) 23
-LEQ (280) 25
-EQL (281) 24
-GREATER (282) 22
-GREQ (283) 26
-OR (284) 28
-NOT (285) 30
-NEQ (286) 27
-SEMICOLON (287) 31
-COLON (288) 6 7 8 9
-TYPE (289) 6 7 8 9
+COMMA (261) 13 15 47 48
+LEFT_BRACKET (262) 35 36 37 38 39 40 41 42 43 44
+RIGHT_BRACKET (263) 35 36 37 38 39 40 41 42 43 44
+FUNCTION (264) 37 38 39 40 41 42 43 44
+RETURN (265) 6
+BREAK (266) 7
+ASSIGN (267) 9 11
+IF (268) 35
+WHILE (269) 36
+FOR (270)
+LOOP (271)
+OBJ (272)
+PLUS (273) 20
+MINUS (274) 19
+MUL (275) 21
+DIV (276) 22
+LEFT (277) 23 35 36 37 38 39 40 41 42 43 44
+RIGHT (278) 23 35 36 37 38 39 40 41 42 43 44
+ARRLEFT (279) 10 11 18 46 48
+ARRRIGHT (280) 10 11 18 46 48
+AND (281) 31
+LESS (282) 25
+LEQ (283) 27
+EQL (284) 26
+GREATER (285) 24
+GREQ (286) 28
+OR (287) 30
+NOT (288) 32
+NEQ (289) 29
+SEMICOLON (290) 33
+COLON (291) 8 9 10 11 37 38 39 40 41 42 43 44 45 46 47 48
+TYPE (292) 8 9 10 11 37 38 39 40 45 46 47 48
+VOID (293) 41 42 43 44
 
 
 Nonterminals, with rules where they appear
 
-$accept (35)
+$accept (39)
     on left: 0
-program (36)
+program (40)
     on left: 1 2, on right: 0
-block (37)
-    on left: 3 4, on right: 2 4 32 33
-instructions (38)
-    on left: 5, on right: 31
-declaration (39)
-    on left: 6 7 8 9, on right: 5
-arrayValues (40)
-    on left: 10 11, on right: 9 11
-declarationList (41)
-    on left: 12 13, on right: 6 7 8 9 13
-expression (42)
-    on left: 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30, on right:
-    7 10 11 17 18 19 20 21 22 23 24 25 26 27 28 29 30 32 33
-statement (43)
-    on left: 31 32 33, on right: 3 4
+block (41)
+    on left: 3 4, on right: 2 4 35 36 37 39 41 43
+instructions (42)
+    on left: 5 6 7, on right: 33
+declaration (43)
+    on left: 8 9 10 11, on right: 5
+arrayValues (44)
+    on left: 12 13, on right: 11 13
+declarationList (45)
+    on left: 14 15, on right: 8 9 10 11 15
+expression (46)
+    on left: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32, on right:
+    6 9 12 13 19 20 21 22 23 24 25 26 27 28 29 30 31 32 35 36
+statement (47)
+    on left: 33 34 35 36, on right: 3 4
+functionBlock (48)
+    on left: 37 38 39 40 41 42 43 44, on right: 34
+functionDeclaration (49)
+    on left: 45 46 47 48, on right: 37 38 41 42 47 48
 
 
 State 0
 
     0 $accept: . program $end
 
-    ID     shift, and go to state 1
-    IF     shift, and go to state 2
-    WHILE  shift, and go to state 3
+    ID        shift, and go to state 1
+    FUNCTION  shift, and go to state 2
+    RETURN    shift, and go to state 3
+    BREAK     shift, and go to state 4
+    IF        shift, and go to state 5
+    WHILE     shift, and go to state 6
 
     $default  reduce using rule 1 (program)
 
-    program          go to state 4
-    block            go to state 5
-    instructions     go to state 6
-    declaration      go to state 7
-    declarationList  go to state 8
-    statement        go to state 9
+    program          go to state 7
+    block            go to state 8
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
 
 
 State 1
 
-   12 declarationList: ID .
-   13                | ID . COMMA declarationList
+   14 declarationList: ID .
+   15                | ID . COMMA declarationList
 
-    COMMA  shift, and go to state 10
+    COMMA  shift, and go to state 14
 
-    $default  reduce using rule 12 (declarationList)
+    $default  reduce using rule 14 (declarationList)
 
 
 State 2
 
-   32 statement: IF . LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+   37 functionBlock: FUNCTION . ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION . ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   39              | FUNCTION . ID LEFT RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION . ID LEFT RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION . ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION . ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+   43              | FUNCTION . ID LEFT RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION . ID LEFT RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
 
-    LEFT  shift, and go to state 11
+    ID  shift, and go to state 15
 
 
 State 3
 
-   33 statement: WHILE . LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+    6 instructions: RETURN . expression
 
-    LEFT  shift, and go to state 12
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 20
 
 
 State 4
 
-    0 $accept: program . $end
+    7 instructions: BREAK .
 
-    $end  shift, and go to state 13
+    $default  reduce using rule 7 (instructions)
 
 
 State 5
 
-    2 program: block .
-    4 block: block . statement
+   35 statement: IF . LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
 
-    ID     shift, and go to state 1
-    IF     shift, and go to state 2
-    WHILE  shift, and go to state 3
-
-    $default  reduce using rule 2 (program)
-
-    instructions     go to state 6
-    declaration      go to state 7
-    declarationList  go to state 8
-    statement        go to state 14
+    LEFT  shift, and go to state 21
 
 
 State 6
 
-   31 statement: instructions . SEMICOLON
+   36 statement: WHILE . LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
 
-    SEMICOLON  shift, and go to state 15
+    LEFT  shift, and go to state 22
 
 
 State 7
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 23
+
+
+State 8
+
+    2 program: block .
+    4 block: block . statement
+
+    ID        shift, and go to state 1
+    FUNCTION  shift, and go to state 2
+    RETURN    shift, and go to state 3
+    BREAK     shift, and go to state 4
+    IF        shift, and go to state 5
+    WHILE     shift, and go to state 6
+
+    $default  reduce using rule 2 (program)
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 9
+
+   33 statement: instructions . SEMICOLON
+
+    SEMICOLON  shift, and go to state 25
+
+
+State 10
 
     5 instructions: declaration .
 
     $default  reduce using rule 5 (instructions)
 
 
-State 8
+State 11
 
-    6 declaration: declarationList . COLON TYPE
-    7            | declarationList . COLON TYPE ASSIGN expression
-    8            | declarationList . COLON TYPE ARRLEFT ARRRIGHT
-    9            | declarationList . COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
+    8 declaration: declarationList . COLON TYPE
+    9            | declarationList . COLON TYPE ASSIGN expression
+   10            | declarationList . COLON TYPE ARRLEFT ARRRIGHT
+   11            | declarationList . COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
 
-    COLON  shift, and go to state 16
+    COLON  shift, and go to state 26
 
 
-State 9
+State 12
 
     3 block: statement .
 
     $default  reduce using rule 3 (block)
 
 
-State 10
+State 13
 
-   13 declarationList: ID COMMA . declarationList
+   34 statement: functionBlock .
+
+    $default  reduce using rule 34 (statement)
+
+
+State 14
+
+   15 declarationList: ID COMMA . declarationList
 
     ID  shift, and go to state 1
 
-    declarationList  go to state 17
+    declarationList  go to state 27
 
 
-State 11
+State 15
 
-   32 statement: IF LEFT . expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+   37 functionBlock: FUNCTION ID . LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID . LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   39              | FUNCTION ID . LEFT RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION ID . LEFT RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION ID . LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID . LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+   43              | FUNCTION ID . LEFT RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION ID . LEFT RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 22
-
-
-State 12
-
-   33 statement: WHILE LEFT . expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
-
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 23
+    LEFT  shift, and go to state 28
 
 
-State 13
+State 16
+
+   17 expression: NR .
+
+    $default  reduce using rule 17 (expression)
+
+
+State 17
+
+   16 expression: ID .
+   18           | ID . ARRLEFT NR ARRRIGHT
+
+    ARRLEFT  shift, and go to state 29
+
+    $default  reduce using rule 16 (expression)
+
+
+State 18
+
+   23 expression: LEFT . expression RIGHT
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 30
+
+
+State 19
+
+   32 expression: NOT . expression
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 31
+
+
+State 20
+
+    6 instructions: RETURN expression .
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    AND      shift, and go to state 36
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    OR       shift, and go to state 42
+    NEQ      shift, and go to state 43
+
+    $default  reduce using rule 6 (instructions)
+
+
+State 21
+
+   35 statement: IF LEFT . expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 44
+
+
+State 22
+
+   36 statement: WHILE LEFT . expression RIGHT LEFT_BRACKET block RIGHT_BRACKET
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 45
+
+
+State 23
 
     0 $accept: program $end .
 
     $default  accept
 
 
-State 14
+State 24
 
     4 block: block statement .
 
     $default  reduce using rule 4 (block)
 
 
-State 15
-
-   31 statement: instructions SEMICOLON .
-
-    $default  reduce using rule 31 (statement)
-
-
-State 16
-
-    6 declaration: declarationList COLON . TYPE
-    7            | declarationList COLON . TYPE ASSIGN expression
-    8            | declarationList COLON . TYPE ARRLEFT ARRRIGHT
-    9            | declarationList COLON . TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
-
-    TYPE  shift, and go to state 24
-
-
-State 17
-
-   13 declarationList: ID COMMA declarationList .
-
-    $default  reduce using rule 13 (declarationList)
-
-
-State 18
-
-   15 expression: NR .
-
-    $default  reduce using rule 15 (expression)
-
-
-State 19
-
-   14 expression: ID .
-   16           | ID . ARRLEFT NR ARRRIGHT
-
-    ARRLEFT  shift, and go to state 25
-
-    $default  reduce using rule 14 (expression)
-
-
-State 20
-
-   21 expression: LEFT . expression RIGHT
-
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 26
-
-
-State 21
-
-   30 expression: NOT . expression
-
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 27
-
-
-State 22
-
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
-   32 statement: IF LEFT expression . RIGHT LEFT_BRACKET block RIGHT_BRACKET
-
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    RIGHT    shift, and go to state 32
-    AND      shift, and go to state 33
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    OR       shift, and go to state 39
-    NEQ      shift, and go to state 40
-
-
-State 23
-
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
-   33 statement: WHILE LEFT expression . RIGHT LEFT_BRACKET block RIGHT_BRACKET
-
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    RIGHT    shift, and go to state 41
-    AND      shift, and go to state 33
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    OR       shift, and go to state 39
-    NEQ      shift, and go to state 40
-
-
-State 24
-
-    6 declaration: declarationList COLON TYPE .
-    7            | declarationList COLON TYPE . ASSIGN expression
-    8            | declarationList COLON TYPE . ARRLEFT ARRRIGHT
-    9            | declarationList COLON TYPE . ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
-
-    ASSIGN   shift, and go to state 42
-    ARRLEFT  shift, and go to state 43
-
-    $default  reduce using rule 6 (declaration)
-
-
 State 25
 
-   16 expression: ID ARRLEFT . NR ARRRIGHT
+   33 statement: instructions SEMICOLON .
 
-    NR  shift, and go to state 44
+    $default  reduce using rule 33 (statement)
 
 
 State 26
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   21           | LEFT expression . RIGHT
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+    8 declaration: declarationList COLON . TYPE
+    9            | declarationList COLON . TYPE ASSIGN expression
+   10            | declarationList COLON . TYPE ARRLEFT ARRRIGHT
+   11            | declarationList COLON . TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
 
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    RIGHT    shift, and go to state 45
-    AND      shift, and go to state 33
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    OR       shift, and go to state 39
-    NEQ      shift, and go to state 40
+    TYPE  shift, and go to state 46
 
 
 State 27
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
-   30           | NOT expression .
+   15 declarationList: ID COMMA declarationList .
 
-    $default  reduce using rule 30 (expression)
+    $default  reduce using rule 15 (declarationList)
 
 
 State 28
 
-   18 expression: expression PLUS . expression
+   37 functionBlock: FUNCTION ID LEFT . functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT . functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   39              | FUNCTION ID LEFT . RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION ID LEFT . RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION ID LEFT . functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT . functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+   43              | FUNCTION ID LEFT . RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION ID LEFT . RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    ID     shift, and go to state 47
+    RIGHT  shift, and go to state 48
 
-    expression  go to state 46
+    functionDeclaration  go to state 49
 
 
 State 29
 
-   17 expression: expression MINUS . expression
+   18 expression: ID ARRLEFT . NR ARRRIGHT
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 47
+    NR  shift, and go to state 50
 
 
 State 30
 
-   19 expression: expression MUL . expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   23           | LEFT expression . RIGHT
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 48
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    RIGHT    shift, and go to state 51
+    AND      shift, and go to state 36
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    OR       shift, and go to state 42
+    NEQ      shift, and go to state 43
 
 
 State 31
 
-   20 expression: expression DIV . expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+   32           | NOT expression .
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 49
+    $default  reduce using rule 32 (expression)
 
 
 State 32
 
-   32 statement: IF LEFT expression RIGHT . LEFT_BRACKET block RIGHT_BRACKET
+   20 expression: expression PLUS . expression
 
-    LEFT_BRACKET  shift, and go to state 50
-
-
-State 33
-
-   29 expression: expression AND . expression
-
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    expression  go to state 51
-
-
-State 34
-
-   23 expression: expression LESS . expression
-
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 52
 
 
-State 35
+State 33
 
-   25 expression: expression LEQ . expression
+   19 expression: expression MINUS . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 53
 
 
-State 36
+State 34
 
-   24 expression: expression EQL . expression
+   21 expression: expression MUL . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 54
 
 
-State 37
+State 35
 
-   22 expression: expression GREATER . expression
+   22 expression: expression DIV . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 55
 
 
-State 38
+State 36
 
-   26 expression: expression GREQ . expression
+   31 expression: expression AND . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 56
 
 
-State 39
+State 37
 
-   28 expression: expression OR . expression
+   25 expression: expression LESS . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 57
 
 
-State 40
+State 38
 
-   27 expression: expression NEQ . expression
+   27 expression: expression LEQ . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 58
 
 
-State 41
+State 39
 
-   33 statement: WHILE LEFT expression RIGHT . LEFT_BRACKET block RIGHT_BRACKET
+   26 expression: expression EQL . expression
 
-    LEFT_BRACKET  shift, and go to state 59
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 59
 
 
-State 42
+State 40
 
-    7 declaration: declarationList COLON TYPE ASSIGN . expression
+   24 expression: expression GREATER . expression
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
 
     expression  go to state 60
 
 
+State 41
+
+   28 expression: expression GREQ . expression
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 61
+
+
+State 42
+
+   30 expression: expression OR . expression
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 62
+
+
 State 43
 
-    8 declaration: declarationList COLON TYPE ARRLEFT . ARRRIGHT
-    9            | declarationList COLON TYPE ARRLEFT . ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
+   29 expression: expression NEQ . expression
 
-    ARRRIGHT  shift, and go to state 61
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 63
 
 
 State 44
 
-   16 expression: ID ARRLEFT NR . ARRRIGHT
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+   35 statement: IF LEFT expression . RIGHT LEFT_BRACKET block RIGHT_BRACKET
 
-    ARRRIGHT  shift, and go to state 62
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    RIGHT    shift, and go to state 64
+    AND      shift, and go to state 36
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    OR       shift, and go to state 42
+    NEQ      shift, and go to state 43
 
 
 State 45
 
-   21 expression: LEFT expression RIGHT .
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+   36 statement: WHILE LEFT expression . RIGHT LEFT_BRACKET block RIGHT_BRACKET
 
-    $default  reduce using rule 21 (expression)
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    RIGHT    shift, and go to state 65
+    AND      shift, and go to state 36
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    OR       shift, and go to state 42
+    NEQ      shift, and go to state 43
 
 
 State 46
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   18           | expression PLUS expression .
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+    8 declaration: declarationList COLON TYPE .
+    9            | declarationList COLON TYPE . ASSIGN expression
+   10            | declarationList COLON TYPE . ARRLEFT ARRRIGHT
+   11            | declarationList COLON TYPE . ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
 
-    MUL  shift, and go to state 30
-    DIV  shift, and go to state 31
+    ASSIGN   shift, and go to state 66
+    ARRLEFT  shift, and go to state 67
 
-    $default  reduce using rule 18 (expression)
+    $default  reduce using rule 8 (declaration)
 
 
 State 47
 
-   17 expression: expression . MINUS expression
-   17           | expression MINUS expression .
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   45 functionDeclaration: ID . COLON TYPE
+   46                    | ID . COLON TYPE ARRLEFT ARRRIGHT
+   47                    | ID . COLON TYPE COMMA functionDeclaration
+   48                    | ID . COLON TYPE ARRLEFT ARRRIGHT COMMA functionDeclaration
 
-    MUL  shift, and go to state 30
-    DIV  shift, and go to state 31
-
-    $default  reduce using rule 17 (expression)
+    COLON  shift, and go to state 68
 
 
 State 48
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   19           | expression MUL expression .
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   39 functionBlock: FUNCTION ID LEFT RIGHT . COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION ID LEFT RIGHT . COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   43              | FUNCTION ID LEFT RIGHT . COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION ID LEFT RIGHT . COLON VOID LEFT_BRACKET RIGHT_BRACKET
 
-    $default  reduce using rule 19 (expression)
+    COLON  shift, and go to state 69
 
 
 State 49
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   20           | expression DIV expression .
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration . RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT functionDeclaration . RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION ID LEFT functionDeclaration . RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT functionDeclaration . RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
 
-    $default  reduce using rule 20 (expression)
+    RIGHT  shift, and go to state 70
 
 
 State 50
 
-   32 statement: IF LEFT expression RIGHT LEFT_BRACKET . block RIGHT_BRACKET
+   18 expression: ID ARRLEFT NR . ARRRIGHT
 
-    ID     shift, and go to state 1
-    IF     shift, and go to state 2
-    WHILE  shift, and go to state 3
-
-    block            go to state 63
-    instructions     go to state 6
-    declaration      go to state 7
-    declarationList  go to state 8
-    statement        go to state 9
+    ARRRIGHT  shift, and go to state 71
 
 
 State 51
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
-   29           | expression AND expression .
-
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    NEQ      shift, and go to state 40
-
-    $default  reduce using rule 29 (expression)
-
-
-State 52
-
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   23           | expression LESS expression .
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
-
-    PLUS   shift, and go to state 28
-    MINUS  shift, and go to state 29
-    MUL    shift, and go to state 30
-    DIV    shift, and go to state 31
+   23 expression: LEFT expression RIGHT .
 
     $default  reduce using rule 23 (expression)
 
 
+State 52
+
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   20           | expression PLUS expression .
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+
+    MUL  shift, and go to state 34
+    DIV  shift, and go to state 35
+
+    $default  reduce using rule 20 (expression)
+
+
 State 53
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   25           | expression LEQ expression .
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   19 expression: expression . MINUS expression
+   19           | expression MINUS expression .
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    PLUS   shift, and go to state 28
-    MINUS  shift, and go to state 29
-    MUL    shift, and go to state 30
-    DIV    shift, and go to state 31
+    MUL  shift, and go to state 34
+    DIV  shift, and go to state 35
 
-    $default  reduce using rule 25 (expression)
+    $default  reduce using rule 19 (expression)
 
 
 State 54
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   24           | expression EQL expression .
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   21           | expression MUL expression .
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    PLUS   shift, and go to state 28
-    MINUS  shift, and go to state 29
-    MUL    shift, and go to state 30
-    DIV    shift, and go to state 31
-
-    $default  reduce using rule 24 (expression)
+    $default  reduce using rule 21 (expression)
 
 
 State 55
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   22           | expression GREATER expression .
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
-
-    PLUS   shift, and go to state 28
-    MINUS  shift, and go to state 29
-    MUL    shift, and go to state 30
-    DIV    shift, and go to state 31
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   22           | expression DIV expression .
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
     $default  reduce using rule 22 (expression)
 
 
 State 56
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   26           | expression GREQ expression .
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+   31           | expression AND expression .
 
-    PLUS   shift, and go to state 28
-    MINUS  shift, and go to state 29
-    MUL    shift, and go to state 30
-    DIV    shift, and go to state 31
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    NEQ      shift, and go to state 43
 
-    $default  reduce using rule 26 (expression)
+    $default  reduce using rule 31 (expression)
 
 
 State 57
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   28           | expression OR expression .
-   29           | expression . AND expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   25           | expression LESS expression .
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    NEQ      shift, and go to state 40
+    PLUS   shift, and go to state 32
+    MINUS  shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
 
-    $default  reduce using rule 28 (expression)
+    $default  reduce using rule 25 (expression)
 
 
 State 58
 
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   27           | expression NEQ expression .
-   28           | expression . OR expression
-   29           | expression . AND expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   27           | expression LEQ expression .
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    PLUS   shift, and go to state 28
-    MINUS  shift, and go to state 29
-    MUL    shift, and go to state 30
-    DIV    shift, and go to state 31
+    PLUS   shift, and go to state 32
+    MINUS  shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
 
     $default  reduce using rule 27 (expression)
 
 
 State 59
 
-   33 statement: WHILE LEFT expression RIGHT LEFT_BRACKET . block RIGHT_BRACKET
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   26           | expression EQL expression .
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    ID     shift, and go to state 1
-    IF     shift, and go to state 2
-    WHILE  shift, and go to state 3
+    PLUS   shift, and go to state 32
+    MINUS  shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
 
-    block            go to state 64
-    instructions     go to state 6
-    declaration      go to state 7
-    declarationList  go to state 8
-    statement        go to state 9
+    $default  reduce using rule 26 (expression)
 
 
 State 60
 
-    7 declaration: declarationList COLON TYPE ASSIGN expression .
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   24           | expression GREATER expression .
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    AND      shift, and go to state 33
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    OR       shift, and go to state 39
-    NEQ      shift, and go to state 40
+    PLUS   shift, and go to state 32
+    MINUS  shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
 
-    $default  reduce using rule 7 (declaration)
+    $default  reduce using rule 24 (expression)
 
 
 State 61
 
-    8 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT .
-    9            | declarationList COLON TYPE ARRLEFT ARRRIGHT . ASSIGN ARRLEFT arrayValues ARRRIGHT
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   28           | expression GREQ expression .
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    ASSIGN  shift, and go to state 65
+    PLUS   shift, and go to state 32
+    MINUS  shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
 
-    $default  reduce using rule 8 (declaration)
+    $default  reduce using rule 28 (expression)
 
 
 State 62
 
-   16 expression: ID ARRLEFT NR ARRRIGHT .
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   30           | expression OR expression .
+   31           | expression . AND expression
 
-    $default  reduce using rule 16 (expression)
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    NEQ      shift, and go to state 43
+
+    $default  reduce using rule 30 (expression)
 
 
 State 63
 
-    4 block: block . statement
-   32 statement: IF LEFT expression RIGHT LEFT_BRACKET block . RIGHT_BRACKET
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   29           | expression NEQ expression .
+   30           | expression . OR expression
+   31           | expression . AND expression
 
-    ID             shift, and go to state 1
-    RIGHT_BRACKET  shift, and go to state 66
-    IF             shift, and go to state 2
-    WHILE          shift, and go to state 3
+    PLUS   shift, and go to state 32
+    MINUS  shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
 
-    instructions     go to state 6
-    declaration      go to state 7
-    declarationList  go to state 8
-    statement        go to state 14
+    $default  reduce using rule 29 (expression)
 
 
 State 64
 
-    4 block: block . statement
-   33 statement: WHILE LEFT expression RIGHT LEFT_BRACKET block . RIGHT_BRACKET
+   35 statement: IF LEFT expression RIGHT . LEFT_BRACKET block RIGHT_BRACKET
 
-    ID             shift, and go to state 1
-    RIGHT_BRACKET  shift, and go to state 67
-    IF             shift, and go to state 2
-    WHILE          shift, and go to state 3
-
-    instructions     go to state 6
-    declaration      go to state 7
-    declarationList  go to state 8
-    statement        go to state 14
+    LEFT_BRACKET  shift, and go to state 72
 
 
 State 65
 
-    9 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN . ARRLEFT arrayValues ARRRIGHT
+   36 statement: WHILE LEFT expression RIGHT . LEFT_BRACKET block RIGHT_BRACKET
 
-    ARRLEFT  shift, and go to state 68
+    LEFT_BRACKET  shift, and go to state 73
 
 
 State 66
 
-   32 statement: IF LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET .
+    9 declaration: declarationList COLON TYPE ASSIGN . expression
 
-    $default  reduce using rule 32 (statement)
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    expression  go to state 74
 
 
 State 67
 
-   33 statement: WHILE LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET .
+   10 declaration: declarationList COLON TYPE ARRLEFT . ARRRIGHT
+   11            | declarationList COLON TYPE ARRLEFT . ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
 
-    $default  reduce using rule 33 (statement)
+    ARRRIGHT  shift, and go to state 75
 
 
 State 68
 
-    9 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT . arrayValues ARRRIGHT
+   45 functionDeclaration: ID COLON . TYPE
+   46                    | ID COLON . TYPE ARRLEFT ARRRIGHT
+   47                    | ID COLON . TYPE COMMA functionDeclaration
+   48                    | ID COLON . TYPE ARRLEFT ARRRIGHT COMMA functionDeclaration
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
-
-    arrayValues  go to state 69
-    expression   go to state 70
+    TYPE  shift, and go to state 76
 
 
 State 69
 
-    9 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues . ARRRIGHT
+   39 functionBlock: FUNCTION ID LEFT RIGHT COLON . TYPE LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION ID LEFT RIGHT COLON . TYPE LEFT_BRACKET RIGHT_BRACKET
+   43              | FUNCTION ID LEFT RIGHT COLON . VOID LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION ID LEFT RIGHT COLON . VOID LEFT_BRACKET RIGHT_BRACKET
 
-    ARRRIGHT  shift, and go to state 71
+    TYPE  shift, and go to state 77
+    VOID  shift, and go to state 78
 
 
 State 70
 
-   10 arrayValues: expression .
-   11            | expression . COMMA arrayValues
-   17 expression: expression . MINUS expression
-   18           | expression . PLUS expression
-   19           | expression . MUL expression
-   20           | expression . DIV expression
-   22           | expression . GREATER expression
-   23           | expression . LESS expression
-   24           | expression . EQL expression
-   25           | expression . LEQ expression
-   26           | expression . GREQ expression
-   27           | expression . NEQ expression
-   28           | expression . OR expression
-   29           | expression . AND expression
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT . COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT functionDeclaration RIGHT . COLON TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION ID LEFT functionDeclaration RIGHT . COLON VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT functionDeclaration RIGHT . COLON VOID LEFT_BRACKET RIGHT_BRACKET
 
-    COMMA    shift, and go to state 72
-    PLUS     shift, and go to state 28
-    MINUS    shift, and go to state 29
-    MUL      shift, and go to state 30
-    DIV      shift, and go to state 31
-    AND      shift, and go to state 33
-    LESS     shift, and go to state 34
-    LEQ      shift, and go to state 35
-    EQL      shift, and go to state 36
-    GREATER  shift, and go to state 37
-    GREQ     shift, and go to state 38
-    OR       shift, and go to state 39
-    NEQ      shift, and go to state 40
-
-    $default  reduce using rule 10 (arrayValues)
+    COLON  shift, and go to state 79
 
 
 State 71
 
-    9 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT .
+   18 expression: ID ARRLEFT NR ARRRIGHT .
 
-    $default  reduce using rule 9 (declaration)
+    $default  reduce using rule 18 (expression)
 
 
 State 72
 
-   11 arrayValues: expression COMMA . arrayValues
+   35 statement: IF LEFT expression RIGHT LEFT_BRACKET . block RIGHT_BRACKET
 
-    NR    shift, and go to state 18
-    ID    shift, and go to state 19
-    LEFT  shift, and go to state 20
-    NOT   shift, and go to state 21
+    ID        shift, and go to state 1
+    FUNCTION  shift, and go to state 2
+    RETURN    shift, and go to state 3
+    BREAK     shift, and go to state 4
+    IF        shift, and go to state 5
+    WHILE     shift, and go to state 6
 
-    arrayValues  go to state 73
-    expression   go to state 70
+    block            go to state 80
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
 
 
 State 73
 
-   11 arrayValues: expression COMMA arrayValues .
+   36 statement: WHILE LEFT expression RIGHT LEFT_BRACKET . block RIGHT_BRACKET
 
-    $default  reduce using rule 11 (arrayValues)
+    ID        shift, and go to state 1
+    FUNCTION  shift, and go to state 2
+    RETURN    shift, and go to state 3
+    BREAK     shift, and go to state 4
+    IF        shift, and go to state 5
+    WHILE     shift, and go to state 6
+
+    block            go to state 81
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
+
+
+State 74
+
+    9 declaration: declarationList COLON TYPE ASSIGN expression .
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    AND      shift, and go to state 36
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    OR       shift, and go to state 42
+    NEQ      shift, and go to state 43
+
+    $default  reduce using rule 9 (declaration)
+
+
+State 75
+
+   10 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT .
+   11            | declarationList COLON TYPE ARRLEFT ARRRIGHT . ASSIGN ARRLEFT arrayValues ARRRIGHT
+
+    ASSIGN  shift, and go to state 82
+
+    $default  reduce using rule 10 (declaration)
+
+
+State 76
+
+   45 functionDeclaration: ID COLON TYPE .
+   46                    | ID COLON TYPE . ARRLEFT ARRRIGHT
+   47                    | ID COLON TYPE . COMMA functionDeclaration
+   48                    | ID COLON TYPE . ARRLEFT ARRRIGHT COMMA functionDeclaration
+
+    COMMA    shift, and go to state 83
+    ARRLEFT  shift, and go to state 84
+
+    $default  reduce using rule 45 (functionDeclaration)
+
+
+State 77
+
+   39 functionBlock: FUNCTION ID LEFT RIGHT COLON TYPE . LEFT_BRACKET block RIGHT_BRACKET
+   40              | FUNCTION ID LEFT RIGHT COLON TYPE . LEFT_BRACKET RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 85
+
+
+State 78
+
+   43 functionBlock: FUNCTION ID LEFT RIGHT COLON VOID . LEFT_BRACKET block RIGHT_BRACKET
+   44              | FUNCTION ID LEFT RIGHT COLON VOID . LEFT_BRACKET RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 86
+
+
+State 79
+
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON . TYPE LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT functionDeclaration RIGHT COLON . TYPE LEFT_BRACKET RIGHT_BRACKET
+   41              | FUNCTION ID LEFT functionDeclaration RIGHT COLON . VOID LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT functionDeclaration RIGHT COLON . VOID LEFT_BRACKET RIGHT_BRACKET
+
+    TYPE  shift, and go to state 87
+    VOID  shift, and go to state 88
+
+
+State 80
+
+    4 block: block . statement
+   35 statement: IF LEFT expression RIGHT LEFT_BRACKET block . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 89
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 81
+
+    4 block: block . statement
+   36 statement: WHILE LEFT expression RIGHT LEFT_BRACKET block . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 90
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 82
+
+   11 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN . ARRLEFT arrayValues ARRRIGHT
+
+    ARRLEFT  shift, and go to state 91
+
+
+State 83
+
+   47 functionDeclaration: ID COLON TYPE COMMA . functionDeclaration
+
+    ID  shift, and go to state 47
+
+    functionDeclaration  go to state 92
+
+
+State 84
+
+   46 functionDeclaration: ID COLON TYPE ARRLEFT . ARRRIGHT
+   48                    | ID COLON TYPE ARRLEFT . ARRRIGHT COMMA functionDeclaration
+
+    ARRRIGHT  shift, and go to state 93
+
+
+State 85
+
+   39 functionBlock: FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET . block RIGHT_BRACKET
+   40              | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 94
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    block            go to state 95
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
+
+
+State 86
+
+   43 functionBlock: FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET . block RIGHT_BRACKET
+   44              | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 96
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    block            go to state 97
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
+
+
+State 87
+
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE . LEFT_BRACKET block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE . LEFT_BRACKET RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 98
+
+
+State 88
+
+   41 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID . LEFT_BRACKET block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID . LEFT_BRACKET RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 99
+
+
+State 89
+
+   35 statement: IF LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET .
+
+    $default  reduce using rule 35 (statement)
+
+
+State 90
+
+   36 statement: WHILE LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET .
+
+    $default  reduce using rule 36 (statement)
+
+
+State 91
+
+   11 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT . arrayValues ARRRIGHT
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    arrayValues  go to state 100
+    expression   go to state 101
+
+
+State 92
+
+   47 functionDeclaration: ID COLON TYPE COMMA functionDeclaration .
+
+    $default  reduce using rule 47 (functionDeclaration)
+
+
+State 93
+
+   46 functionDeclaration: ID COLON TYPE ARRLEFT ARRRIGHT .
+   48                    | ID COLON TYPE ARRLEFT ARRRIGHT . COMMA functionDeclaration
+
+    COMMA  shift, and go to state 102
+
+    $default  reduce using rule 46 (functionDeclaration)
+
+
+State 94
+
+   40 functionBlock: FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET .
+
+    $default  reduce using rule 40 (functionBlock)
+
+
+State 95
+
+    4 block: block . statement
+   39 functionBlock: FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET block . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 103
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 96
+
+   44 functionBlock: FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET .
+
+    $default  reduce using rule 44 (functionBlock)
+
+
+State 97
+
+    4 block: block . statement
+   43 functionBlock: FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET block . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 104
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 98
+
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET . block RIGHT_BRACKET
+   38              | FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 105
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    block            go to state 106
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
+
+
+State 99
+
+   41 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET . block RIGHT_BRACKET
+   42              | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 107
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    block            go to state 108
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 12
+    functionBlock    go to state 13
+
+
+State 100
+
+   11 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues . ARRRIGHT
+
+    ARRRIGHT  shift, and go to state 109
+
+
+State 101
+
+   12 arrayValues: expression .
+   13            | expression . COMMA arrayValues
+   19 expression: expression . MINUS expression
+   20           | expression . PLUS expression
+   21           | expression . MUL expression
+   22           | expression . DIV expression
+   24           | expression . GREATER expression
+   25           | expression . LESS expression
+   26           | expression . EQL expression
+   27           | expression . LEQ expression
+   28           | expression . GREQ expression
+   29           | expression . NEQ expression
+   30           | expression . OR expression
+   31           | expression . AND expression
+
+    COMMA    shift, and go to state 110
+    PLUS     shift, and go to state 32
+    MINUS    shift, and go to state 33
+    MUL      shift, and go to state 34
+    DIV      shift, and go to state 35
+    AND      shift, and go to state 36
+    LESS     shift, and go to state 37
+    LEQ      shift, and go to state 38
+    EQL      shift, and go to state 39
+    GREATER  shift, and go to state 40
+    GREQ     shift, and go to state 41
+    OR       shift, and go to state 42
+    NEQ      shift, and go to state 43
+
+    $default  reduce using rule 12 (arrayValues)
+
+
+State 102
+
+   48 functionDeclaration: ID COLON TYPE ARRLEFT ARRRIGHT COMMA . functionDeclaration
+
+    ID  shift, and go to state 47
+
+    functionDeclaration  go to state 111
+
+
+State 103
+
+   39 functionBlock: FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET .
+
+    $default  reduce using rule 39 (functionBlock)
+
+
+State 104
+
+   43 functionBlock: FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET .
+
+    $default  reduce using rule 43 (functionBlock)
+
+
+State 105
+
+   38 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET .
+
+    $default  reduce using rule 38 (functionBlock)
+
+
+State 106
+
+    4 block: block . statement
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 112
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 107
+
+   42 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET .
+
+    $default  reduce using rule 42 (functionBlock)
+
+
+State 108
+
+    4 block: block . statement
+   41 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block . RIGHT_BRACKET
+
+    ID             shift, and go to state 1
+    RIGHT_BRACKET  shift, and go to state 113
+    FUNCTION       shift, and go to state 2
+    RETURN         shift, and go to state 3
+    BREAK          shift, and go to state 4
+    IF             shift, and go to state 5
+    WHILE          shift, and go to state 6
+
+    instructions     go to state 9
+    declaration      go to state 10
+    declarationList  go to state 11
+    statement        go to state 24
+    functionBlock    go to state 13
+
+
+State 109
+
+   11 declaration: declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT .
+
+    $default  reduce using rule 11 (declaration)
+
+
+State 110
+
+   13 arrayValues: expression COMMA . arrayValues
+
+    NR    shift, and go to state 16
+    ID    shift, and go to state 17
+    LEFT  shift, and go to state 18
+    NOT   shift, and go to state 19
+
+    arrayValues  go to state 114
+    expression   go to state 101
+
+
+State 111
+
+   48 functionDeclaration: ID COLON TYPE ARRLEFT ARRRIGHT COMMA functionDeclaration .
+
+    $default  reduce using rule 48 (functionDeclaration)
+
+
+State 112
+
+   37 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET .
+
+    $default  reduce using rule 37 (functionBlock)
+
+
+State 113
+
+   41 functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET .
+
+    $default  reduce using rule 41 (functionBlock)
+
+
+State 114
+
+   13 arrayValues: expression COMMA arrayValues .
+
+    $default  reduce using rule 13 (arrayValues)

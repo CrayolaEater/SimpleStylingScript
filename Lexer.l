@@ -30,6 +30,10 @@ using namespace std;
 "if" {return IF;}
 "for" {return FOR;}
 "while" {return WHILE;}
+"function" {return FUNCTION;}
+"void" {return VOID;}
+"return" {return RETURN;}
+"break" {return BREAK;}
 "{" {return LEFT_BRACKET;}
 "}" {return RIGHT_BRACKET;}
 [_a-zA-Z][_a-zA-Z0-9]* {return ID;}
