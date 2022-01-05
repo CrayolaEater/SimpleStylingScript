@@ -9,7 +9,7 @@ extern int yylex();
 extern void yyerror(const char*);
 %}
 
-%token NR ID PERIOD COMMA LEFT_BRACKET RIGHT_BRACKET FUNCTION RETURN BREAK
+%token NR ID PERIOD COMMA LEFT_BRACKET RIGHT_BRACKET FUNCTION RETURN BREAK INTERFACE
 %token ASSIGN IF WHILE FOR LOOP OBJ PLUS MINUS MUL DIV LEFT RIGHT ARRLEFT ARRRIGHT
 %token AND LESS LEQ EQL GREATER GREQ OR NOT NEQ SEMICOLON COLON TYPE VOID
 %left AND OR
@@ -33,9 +33,13 @@ instructions: declaration
 			;
 
 declaration: declarationList COLON TYPE
+		   | declarationList COLON ID
 		   | declarationList COLON TYPE ASSIGN expression
+		   | declarationList COLON ID ASSIGN expression
 		   | declarationList COLON TYPE ARRLEFT ARRRIGHT
+		   | declarationList COLON ID ARRLEFT ARRRIGHT
 		   | declarationList COLON TYPE ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
+		   | declarationList COLON ID ARRLEFT ARRRIGHT ASSIGN ARRLEFT arrayValues ARRRIGHT
 		   ;
 
 arrayValues: expression
@@ -67,22 +71,43 @@ expression: ID
 
 statement: instructions SEMICOLON
 		 | functionBlock
+		 | interfaceBlock
 		 | IF LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET 
 		 | WHILE LEFT expression RIGHT LEFT_BRACKET block RIGHT_BRACKET 
 		 ;
 
-functionBlock: FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
-			 | FUNCTION ID LEFT functionDeclaration RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
-			 | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET block RIGHT_BRACKET
-			 | FUNCTION ID LEFT RIGHT COLON TYPE LEFT_BRACKET RIGHT_BRACKET
-			 | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
-			 | FUNCTION ID LEFT functionDeclaration RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
-			 | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET block RIGHT_BRACKET
-			 | FUNCTION ID LEFT RIGHT COLON VOID LEFT_BRACKET RIGHT_BRACKET
+functionBlock: FUNCTION ID LEFT functionDeclarationList RIGHT COLON functionType LEFT_BRACKET block RIGHT_BRACKET
+			 | FUNCTION ID LEFT functionDeclarationList RIGHT COLON functionType LEFT_BRACKET RIGHT_BRACKET
+			 | FUNCTION ID LEFT RIGHT COLON functionType LEFT_BRACKET block RIGHT_BRACKET
+			 | FUNCTION ID LEFT RIGHT COLON functionType LEFT_BRACKET RIGHT_BRACKET
 			 ;
 
+functionType: ID
+			| TYPE
+			| VOID
+			;
+
+functionDeclarationList: functionDeclaration
+					   | functionDeclaration COMMA functionDeclarationList
+					   ;
+
 functionDeclaration: ID COLON TYPE
+				   | ID COLON ID
 				   | ID COLON TYPE ARRLEFT ARRRIGHT
-				   | ID COLON TYPE COMMA functionDeclaration
-				   | ID COLON TYPE ARRLEFT ARRRIGHT COMMA functionDeclaration
+				   | ID COLON ID ARRLEFT ARRRIGHT
 				   ;
+
+interfaceBlock: INTERFACE ID LEFT_BRACKET interfaceDeclarationList RIGHT_BRACKET
+			  ;
+
+interfaceDeclarationList: interfaceDeclaration
+						| interfaceDeclaration interfaceDeclarationList
+						;
+
+interfaceDeclaration: ID COLON TYPE SEMICOLON
+					| ID COLON ID SEMICOLON
+					| ID COLON TYPE ARRLEFT ARRRIGHT SEMICOLON
+					| ID COLON ID ARRLEFT ARRRIGHT SEMICOLON
+					| ID LEFT functionDeclarationList RIGHT COLON functionType SEMICOLON
+					| ID LEFT RIGHT COLON functionType SEMICOLON
+					;

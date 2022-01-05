@@ -34,6 +34,7 @@ using namespace std;
 "void" {return VOID;}
 "return" {return RETURN;}
 "break" {return BREAK;}
+"interface" {return INTERFACE;}
 "{" {return LEFT_BRACKET;}
 "}" {return RIGHT_BRACKET;}
 [_a-zA-Z][_a-zA-Z0-9]* {return ID;}
