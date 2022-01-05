@@ -30,6 +30,8 @@ using namespace std;
 "if" {return IF;}
 "for" {return FOR;}
 "while" {return WHILE;}
+"{" {return LEFT_BRACKET;}
+"}" {return RIGHT_BRACKET;}
 [_a-zA-Z][_a-zA-Z0-9]* {return ID;}
 "=" {return ASSIGN;}
 ([0-9]*[.])?[0-9]+ {return NR;}

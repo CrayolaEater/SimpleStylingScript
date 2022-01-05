@@ -136,19 +136,19 @@
     <CustomBuild Include="Parser.y">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">win_bison -o %(Filename).cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">win_bison -o %(Filename).cpp %(Identity) -v</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Running Bison... %(Command)</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Parser.cpp ; Parser.h</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">win_bison -o %(Filename).cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">win_bison -o %(Filename).cpp %(Identity) -v</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Running Bison... %(Command)</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Parser.cpp ; Parser.h</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">win_bison -o %(Filename).cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">win_bison -o %(Filename).cpp %(Identity) -v</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Running Bison... %(Command)</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Parser.cpp ; Parser.h</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">win_bison -o %(Filename).cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">win_bison -o %(Filename).cpp %(Identity) -v</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Running Bison... %(Command)</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Parser.cpp ; Parser.h</Outputs>
     </CustomBuild>

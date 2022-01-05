@@ -1,1 +1,15 @@
 text, tas : boolean = a == 2;
+note : int[] = [5, 6, 7];
+
+if(c >= 2 && b < 1) 
+{
+	while (a == 2)
+	{
+		c : string = 2;
+	}
+
+	while (a == 2)
+	{
+		c : string = 2;
+	}
+}

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdio.h>
-#include<stdlib.h>
+#include <stdlib.h>
 #include "Parser.h"
 using namespace std;
 extern int yyparse();
