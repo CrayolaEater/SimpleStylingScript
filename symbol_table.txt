@@ -1,0 +1,6 @@
+
+id	type	value
+test	float	0
+gg	int	10
+y	int	11
+x	boolean	2

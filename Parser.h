@@ -39,55 +39,71 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 32 "Parser.y" /* yacc.c:1909  */
+
+	#include "CurrentValue.h"
+
+#line 48 "Parser.h" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NR = 258,
-    ID = 259,
-    PERIOD = 260,
-    COMMA = 261,
-    LEFT_BRACKET = 262,
-    RIGHT_BRACKET = 263,
-    FUNCTION = 264,
-    RETURN = 265,
-    BREAK = 266,
-    INTERFACE = 267,
-    ASSIGN = 268,
-    IF = 269,
-    WHILE = 270,
-    FOR = 271,
-    LOOP = 272,
-    OBJ = 273,
-    PLUS = 274,
-    MINUS = 275,
-    MUL = 276,
-    DIV = 277,
-    LEFT = 278,
-    RIGHT = 279,
-    ARRLEFT = 280,
-    ARRRIGHT = 281,
-    AND = 282,
-    LESS = 283,
-    LEQ = 284,
-    EQL = 285,
-    GREATER = 286,
-    GREQ = 287,
-    OR = 288,
-    NOT = 289,
-    NEQ = 290,
-    SEMICOLON = 291,
-    COLON = 292,
-    TYPE = 293,
-    VOID = 294
+    ID = 258,
+    NR = 259,
+    TYPE = 260,
+    VOID = 261,
+    PERIOD = 262,
+    COMMA = 263,
+    LEFT_BRACKET = 264,
+    RIGHT_BRACKET = 265,
+    FUNCTION = 266,
+    RETURN = 267,
+    BREAK = 268,
+    INTERFACE = 269,
+    ASSIGN = 270,
+    IF = 271,
+    WHILE = 272,
+    FOR = 273,
+    LOOP = 274,
+    OBJ = 275,
+    PLUS = 276,
+    MINUS = 277,
+    MUL = 278,
+    DIV = 279,
+    LEFT = 280,
+    RIGHT = 281,
+    ARRLEFT = 282,
+    ARRRIGHT = 283,
+    AND = 284,
+    LESS = 285,
+    LEQ = 286,
+    EQL = 287,
+    GREATER = 288,
+    GREQ = 289,
+    OR = 290,
+    NOT = 291,
+    NEQ = 292,
+    SEMICOLON = 293,
+    COLON = 294
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE YYSTYPE;
+union YYSTYPE
+{
+#line 37 "Parser.y" /* yacc.c:1909  */
+
+	int number;
+	char * string;
+	currentValue current_value;
+
+#line 106 "Parser.h" /* yacc.c:1909  */
+};
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

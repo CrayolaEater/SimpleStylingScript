@@ -98,15 +98,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FunctionsTable.cpp" />
+    <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="ScopeStack.cpp" />
+    <ClCompile Include="SymbolTable.cpp" />
+    <ClCompile Include="VariableTable.cpp" />
     <ClCompile Include="_baseObj.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CurrentValue.h" />
+    <ClInclude Include="FunctionsTable.h" />
+    <ClInclude Include="Helpers.h" />
     <ClInclude Include="limbaj.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Property.h" />
+    <ClInclude Include="ScopeStack.h" />
+    <ClInclude Include="SymbolTable.h" />
+    <ClInclude Include="VariableTable.h" />
     <ClInclude Include="_baseObj.h" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +165,8 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="symbol_table.txt" />
+    <Text Include="symbol_table_functions.txt" />
     <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

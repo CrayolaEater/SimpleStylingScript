@@ -1,38 +1,17 @@
-text, tas : boolean = a == 2;
-note : int[] = [5, 6, 7];
+test : float = 2.0 < 1.0 ;
+gg : int = 10;
 
-interface puiPisica
+y : int = gg + 1;
+
+x : boolean = 1 + 1;
+
+
+
+function faCeva (a:int, b:boolean) : int
 {
-	varsta : int;
-	nume : string;
 }
 
-interface pisica
+function faCeva (a:int, b:boolean, c:string) : void
 {
-	vieti : int;
-	pui : puiPisica[];
-	miauna() : void;
-}
-
-function test(chestii: string, b: boolean) : int
-{
-	return 0;
-}
-
-function main (): void
-{
-	if(c >= 2 && b < 1) 
-	{
-		while (a == 2)
-		{
-			c : string = 2;
-			break;
-		}
-
-		while (a == 2)
-		{
-			c : string = 2;
-		}
-	}
 }
 

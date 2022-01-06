@@ -579,10 +579,11 @@ char *yytext;
 #line 1 "Lexer.l"
 #line 2 "Lexer.l"
 #include <iostream>
+#include <stdio.h>
 #include "Parser.h"
 using namespace std;
-#line 584 "Lexer.cpp"
 #line 585 "Lexer.cpp"
+#line 586 "Lexer.cpp"
 
 #define INITIAL 0
 
@@ -796,9 +797,9 @@ YY_DECL
 		}
 
 	{
-#line 7 "Lexer.l"
+#line 8 "Lexer.l"
 
-#line 801 "Lexer.cpp"
+#line 802 "Lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -857,201 +858,201 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 8 "Lexer.l"
+#line 9 "Lexer.l"
 {return PERIOD;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 9 "Lexer.l"
+#line 10 "Lexer.l"
 {return COMMA;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 10 "Lexer.l"
-{return PLUS;}
+#line 11 "Lexer.l"
+{yylval.string = _strdup(yytext); return PLUS;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 11 "Lexer.l"
+#line 12 "Lexer.l"
 {return COLON;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 12 "Lexer.l"
+#line 13 "Lexer.l"
 {return SEMICOLON;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 13 "Lexer.l"
-{return TYPE;}
+#line 14 "Lexer.l"
+{yylval.string = _strdup(yytext); return TYPE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 14 "Lexer.l"
-{return MINUS;}
+#line 15 "Lexer.l"
+{yylval.string = _strdup(yytext); return MINUS;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 15 "Lexer.l"
-{return MUL;}
+#line 16 "Lexer.l"
+{yylval.string = _strdup(yytext); return MUL;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 16 "Lexer.l"
-{return DIV;}
+#line 17 "Lexer.l"
+{yylval.string = _strdup(yytext); return DIV;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 17 "Lexer.l"
+#line 18 "Lexer.l"
 {return LEFT;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 18 "Lexer.l"
+#line 19 "Lexer.l"
 {return RIGHT;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 19 "Lexer.l"
+#line 20 "Lexer.l"
 {return ARRLEFT;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 20 "Lexer.l"
+#line 21 "Lexer.l"
 {return ARRRIGHT;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 21 "Lexer.l"
-{return AND;}
+#line 22 "Lexer.l"
+{yylval.string = _strdup(yytext); return AND;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 22 "Lexer.l"
-{return LEQ;}
+#line 23 "Lexer.l"
+{yylval.string = _strdup(yytext); return LEQ;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 23 "Lexer.l"
-{return LESS;}
+#line 24 "Lexer.l"
+{yylval.string = _strdup(yytext); return LESS;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 24 "Lexer.l"
-{return EQL;}
+#line 25 "Lexer.l"
+{yylval.string = _strdup(yytext); return EQL;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 25 "Lexer.l"
-{return GREATER;}
+#line 26 "Lexer.l"
+{yylval.string = _strdup(yytext); return GREATER;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 26 "Lexer.l"
-{return GREQ;}
+#line 27 "Lexer.l"
+{yylval.string = _strdup(yytext); return GREQ;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 27 "Lexer.l"
-{return OR;}
+#line 28 "Lexer.l"
+{yylval.string = _strdup(yytext); return OR;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 28 "Lexer.l"
-{return NOT;}
+#line 29 "Lexer.l"
+{yylval.string = _strdup(yytext); return NOT;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 29 "Lexer.l"
-{return NEQ;}
+#line 30 "Lexer.l"
+{yylval.string = _strdup(yytext); return NEQ;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 30 "Lexer.l"
+#line 31 "Lexer.l"
 {return IF;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 31 "Lexer.l"
+#line 32 "Lexer.l"
 {return FOR;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 32 "Lexer.l"
+#line 33 "Lexer.l"
 {return WHILE;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 33 "Lexer.l"
+#line 34 "Lexer.l"
 {return FUNCTION;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 34 "Lexer.l"
-{return VOID;}
+#line 35 "Lexer.l"
+{yylval.string = strdup(yytext); return VOID;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 35 "Lexer.l"
+#line 36 "Lexer.l"
 {return RETURN;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 36 "Lexer.l"
+#line 37 "Lexer.l"
 {return BREAK;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 37 "Lexer.l"
+#line 38 "Lexer.l"
 {return INTERFACE;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 38 "Lexer.l"
+#line 39 "Lexer.l"
 {return LEFT_BRACKET;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 39 "Lexer.l"
+#line 40 "Lexer.l"
 {return RIGHT_BRACKET;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 40 "Lexer.l"
-{return ID;}
+#line 41 "Lexer.l"
+{yylval.string = _strdup(yytext); ;return ID;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 41 "Lexer.l"
+#line 42 "Lexer.l"
 {return ASSIGN;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 42 "Lexer.l"
-{return NR;}
+#line 43 "Lexer.l"
+{yylval.string = _strdup(yytext); return NR;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 43 "Lexer.l"
+#line 44 "Lexer.l"
 ;
 	YY_BREAK
 case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
-#line 44 "Lexer.l"
+#line 45 "Lexer.l"
 {yylineno++;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 45 "Lexer.l"
+#line 46 "Lexer.l"
 {return yytext[0];}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 46 "Lexer.l"
+#line 47 "Lexer.l"
 ECHO;
 	YY_BREAK
-#line 1054 "Lexer.cpp"
+#line 1055 "Lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2052,4 +2053,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 46 "Lexer.l"
+#line 47 "Lexer.l"
